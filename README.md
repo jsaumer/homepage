@@ -13,6 +13,14 @@ no image files: the lamp-glow background is CSS, and the service icons come from
 *The demo services with made-up figures. First shared in a
 [Dashboard Wednesday thread on r/selfhosted](https://www.reddit.com/r/selfhosted/comments/1x5vaov/dashboard_wednesday_customized_homepage/).*
 
+## How this was made
+
+This theme was built with Claude, Anthropic's AI model (Claude Opus 5.5), working in Claude Code.
+I set the direction: I asked for new layouts, picked the printed-menu design from Claude's mockups,
+chose the variations, typeface and details, and tried each change on my own dashboard. Claude wrote
+the code: the CSS and JavaScript, the widget configuration, the demo services and mock data, and most
+of this README.
+
 ## Fork it
 
 I built this for my own dashboard and may not update it often, so please fork it and make it your
@@ -163,6 +171,7 @@ falls back to the browser's serif font.
 
 ## Credits
 
+- Built with [Claude](https://www.anthropic.com/claude) (Claude Opus 5.5) by Anthropic, in Claude Code
 - [Homepage](https://github.com/gethomepage/homepage)
 - [Spectral](https://fonts.google.com/specimen/Spectral) by Production Type, under the SIL Open Font License
 - Weather data by [Open-Meteo](https://open-meteo.com), under CC BY 4.0
