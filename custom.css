@@ -1,0 +1,178 @@
+@import url("https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;600&display=swap");
+
+/* Carte Noir: a printed-menu theme for Homepage (Spectral, no italics)
+   A printed menu: three columns of serif type, a dotted leader from each service to its status,
+   live figures on a line beneath. Recolour by editing the five values below.
+   Layout relies on settings.yaml listing every group under `layout:`. */
+:root {
+  --site-title: "homepage"; /* the large title at the top of the page */
+  --paper: #191816;   /* page background */
+  --ink: #ebe5d6;     /* text */
+  --accent: #c2a25c;  /* group headings, figure labels */
+  --hover: #f0d089;   /* service name on hover */
+  --up: #6f8a78;      /* the word "up": deliberately quiet, so a red "down" stands out */
+  --down: #e5766c;    /* a service that is down, or a widget error */
+  --serif: 'Spectral', serif;
+  --rule: color-mix(in srgb, var(--ink) 18%, transparent);
+  --leader: color-mix(in srgb, var(--ink) 55%, transparent);
+  --faint: color-mix(in srgb, var(--ink) 45%, transparent);
+}
+
+/* page */
+html, body, #page_wrapper { background: var(--paper) !important; }
+/* lamp glow: warm light from the top centre, darker toward the edges */
+#page_wrapper { background:
+  radial-gradient(70rem 42rem at 50% -8%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 62%),
+  radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0,0,0,.55) 100%),
+  var(--paper) !important; }
+#page_wrapper *:not(.site-monitor-status *) { font-family: var(--serif) !important; color: var(--ink) !important; }
+
+/* the menu: three columns that collapse to two or one on narrow screens */
+#layout-groups { display: block !important; columns: 3 20rem; column-gap: 3.4rem; column-rule: 1px solid var(--rule); max-width: 1320px; margin: 1.4rem auto 3rem !important; padding: 0 1.5rem; }
+#layout-groups::before { content: var(--site-title); display: block; column-span: all; text-align: center; font: 300 3rem/1.1 var(--serif); color: var(--ink); padding: .5rem 0 1rem; margin-bottom: 1.7rem; border-bottom: 3px double var(--leader); }
+
+/* masthead: the date and a three-day outlook under the title, filled in by custom.js.
+   Without the script (or before it runs) the title simply keeps its rule. */
+#layout-groups:has(> #carte-masthead)::before { border-bottom: 0; margin-bottom: 0; padding-bottom: .4rem; }
+#carte-masthead { column-span: all; text-align: center; padding: 0 0 1.15rem; margin-bottom: 1.7rem; border-bottom: 3px double var(--leader); }
+#page_wrapper #carte-masthead .cm-date { font: 600 .78rem var(--serif) !important; letter-spacing: .42em; text-transform: uppercase; padding-left: .42em; color: var(--accent) !important; }
+#carte-masthead .cm-weather { display: flex; flex-wrap: wrap; justify-content: center; gap: .2rem 0; margin-top: .5rem; font-size: 1rem; }
+#carte-masthead .cm-day { white-space: nowrap; }
+#carte-masthead .cm-day + .cm-day::before { content: "·"; margin: 0 .9em; color: var(--faint); }
+#page_wrapper #carte-masthead .cm-label { font-size: .7rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--accent) !important; }
+#carte-masthead .cm-icon svg { display: inline-block; width: 1.05rem; height: 1.05rem; vertical-align: -.18em; margin: 0 .45em; stroke: var(--accent); }
+#page_wrapper #carte-masthead .cm-hi { font-weight: 600; }
+#page_wrapper #carte-masthead .cm-lo { color: color-mix(in srgb, var(--ink) 75%, transparent) !important; }
+@media (max-width: 640px) { #page_wrapper #carte-masthead .cm-date { font-size: .68rem !important; letter-spacing: .2em; padding-left: .2em; } #carte-masthead .cm-weather { gap: .2rem 1.5em; } #carte-masthead .cm-day + .cm-day::before { content: none; } }
+
+/* closing line at the foot of the menu, filled in by custom.js */
+#carte-footer { column-span: all; text-align: center; margin-top: .4rem; padding-top: 1.3rem; border-top: 1px solid var(--rule); }
+#page_wrapper #carte-footer .cf-mark { font-size: 1.15rem; line-height: 1; color: var(--accent) !important; }
+#page_wrapper #carte-footer .cf-line { margin-top: .55rem; font-size: .74rem; letter-spacing: .28em; padding-left: .28em; text-transform: uppercase; }
+#page_wrapper #carte-footer .cf-part { color: var(--faint) !important; }
+#carte-footer .cf-part + .cf-part::before { content: "·"; margin: 0 .9em; color: var(--faint); }
+#page_wrapper #carte-footer .cf-ok { color: color-mix(in srgb, var(--ink) 78%, transparent) !important; }
+#page_wrapper #carte-footer .cf-down { color: var(--down) !important; }
+@media (max-width: 640px) { #carte-footer .cf-hint { display: none; } #page_wrapper #carte-footer .cf-line { letter-spacing: .16em; } }
+
+/* column heads: on screens wide enough for three columns, the groups holding Jellyfin (Watch) and
+   OPNsense (Network) always start a new column, so Platform, Watch and Network stay at the top
+   whatever the content below them does */
+@media (min-width: 1280px) {
+  .services-group:has(li[data-name="Jellyfin"]), .services-group:has(li[data-name="OPNsense"]) { break-before: column; }
+}
+
+/* group headings */
+.services-group { display: block !important; break-inside: avoid; padding: 0 0 1.6rem !important; }
+.services-group > button { justify-content: center; }
+.services-group > button svg { display: none; }
+#page_wrapper .service-group-name { font: 600 .8rem var(--serif) !important; letter-spacing: .34em; text-transform: uppercase; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding-left: .34em; color: var(--accent) !important; }
+.service-group-name::before { content: "❦"; font-size: 1.05rem; letter-spacing: 0; margin-bottom: .1rem; }
+.services-list { display: block !important; margin-top: .45rem !important; }
+
+/* one service = one line: icon, name, dotted leader, status */
+.service-card { background: transparent !important; box-shadow: none !important; border-radius: 0 !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; }
+.service-title, .service-title-text { align-items: baseline !important; }
+.service-icon { display: flex !important; width: 1.5rem !important; margin-right: .35rem; align-self: center; }
+.service-icon img { width: 16px !important; height: 16px !important; filter: drop-shadow(0 0 .7px var(--ink)) drop-shadow(0 0 .7px var(--ink)); } /* thin light edge so black icons stay visible */
+.service-icon > div { width: 16px !important; height: 16px !important; background: var(--ink) !important; } /* single-colour icons (the si- and mdi- sets) drawn in the text colour at the same size */
+.service-name { flex: none !important; font-size: 1.03rem !important; line-height: 1.43 !important; font-weight: 600 !important; padding: .14rem 0 !important; }
+.service-description { display: none; }
+.service-title-text::after { content: ""; flex: 1; margin: 0 .5rem; border-bottom: 1px dotted var(--leader); position: relative; top: -.28em; }
+.service-card:hover .service-name { color: var(--hover) !important; }
+
+/* status: Homepage's own green "up" / red "down", set in lowercase */
+.service-tags { position: static !important; margin: 0 !important; align-items: baseline; }
+.site-monitor-status { background: transparent !important; padding: 0 !important; }
+.site-monitor-status div { font: 400 .86rem var(--serif) !important; text-transform: lowercase !important; }
+.site-monitor-status div[class*="emerald"] { color: var(--up) !important; }
+.site-monitor-status div[class*="rose"] { color: var(--down) !important; font-weight: 600 !important; }
+.service-title:not(:has(.site-monitor-status))::after { content: "—"; color: var(--faint); align-self: baseline; } /* no monitor: the leader ends in a dash */
+#page_wrapper .service-card:has(.site-monitor-status [class*="rose"]) .service-name { color: var(--down) !important; } /* down: the name turns red too */
+
+/* live figures: one line under the name */
+.service-container { display: flex !important; flex-wrap: wrap; width: auto !important; padding: 0 0 .3rem 0; margin-left: calc(1.85rem - 1.2rem); clip-path: inset(0 0 0 1rem); }
+.service-block { display: inline-flex !important; flex: none !important; flex-direction: row !important; align-items: baseline !important; gap: .28rem; background: transparent !important; margin: 0 !important; padding: 0 !important; }
+.service-block::before { content: "·"; flex: none; width: 1.2rem; margin-right: -.28rem; text-align: center; font-size: .86rem; } /* separator; the one at the start of each line is clipped away */
+.service-block-value { font-size: .86rem !important; font-weight: 600 !important; }
+/* durations and sizes: custom.js rewrites them ("1mo16d" to "1 month 16 days", "38 GiB" to "41 GB")
+   and stores the new text in data-f */
+.service-block-value[data-f] { font-size: 0 !important; }
+.service-block-value[data-f]::after { content: attr(data-f); font-size: .86rem; }
+#page_wrapper .service-block-label { font-size: .86rem !important; font-style: normal; font-weight: 400 !important; text-transform: lowercase !important; color: var(--accent) !important; }
+/* extra rows under a widget (the TrueNAS pools): health dot, pool name, dotted leader, used / total and percent */
+.service-card > div:not(.service-title):not(.service-container) { display: flex !important; align-items: baseline !important; width: auto !important; height: auto !important; margin: 0 0 0 1.85rem !important; padding: 0 0 .12rem; background: transparent !important; border-radius: 0 !important; }
+.service-card > div:not(.service-title):not(.service-container):last-child { padding-bottom: .35rem; }
+.service-card > div:not(.service-title):not(.service-container) > .absolute { display: none; } /* Homepage's usage bar */
+.service-card > div:not(.service-title):not(.service-container) > span { align-self: center; margin: 0 .45rem 0 0 !important; }
+.service-card > div:not(.service-title):not(.service-container) > .grow { display: flex; align-items: baseline; height: auto !important; margin: 0 !important; font-size: .86rem !important; }
+.service-card > div:not(.service-title):not(.service-container) > .grow > div { position: static !important; flex: none; width: auto !important; overflow: visible !important; font-weight: 600; }
+.service-card > div:not(.service-title):not(.service-container) > .grow::after { content: ""; flex: 1; margin: 0 .5rem; border-bottom: 1px dotted var(--leader); position: relative; top: -.25em; }
+.service-card > div:not(.service-title):not(.service-container) > div:last-child { margin: 0 !important; padding: 0 !important; overflow: visible !important; font-size: .86rem !important; }
+#page_wrapper .service-card > div:not(.service-title):not(.service-container) > div:last-child > span + span { color: var(--accent) !important; }
+.service-card > div:not(.service-title):not(.service-container) > div:last-child > span[data-f] { font-size: 0 !important; } /* sizes rewritten by custom.js, as above */
+.service-card > div:not(.service-title):not(.service-container) > div:last-child > span[data-f]::after { content: attr(data-f); font-size: .86rem; }
+/* a service with more than one widget (Mikrotik and Pangolin in the demo): all its figures flow as one run of text and
+   wrap together. The card itself clips the strip under the icon, so a line never starts with a dot. */
+.service-card:has(.service-container ~ .service-container) { display: flex; flex-wrap: wrap; padding: 0 0 .3rem .65rem !important;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 1.65rem 100%, 1.65rem 1.6rem, 0 1.6rem); }
+.service-card:has(.service-container ~ .service-container) > .service-title { flex: 0 0 calc(100% + .65rem); margin-left: -.65rem; }
+.service-card:has(.service-container ~ .service-container) > .service-container { display: contents !important; }
+.service-card:has(.service-container ~ .service-container) .service-icon { align-self: flex-start; margin-top: .42rem; }
+/* OPNsense: shorter labels so its four figures fit on one line. Homepage always sends them in this
+   order: cpu load, active memory, WAN upload, WAN download. */
+#page_wrapper li.service[data-name="OPNsense"] .service-block-label { font-size: 0 !important; }
+li.service[data-name="OPNsense"] .service-block-label::after { font-size: .86rem; }
+li.service[data-name="OPNsense"] .service-block:nth-child(1) .service-block-label::after { content: "cpu"; }
+li.service[data-name="OPNsense"] .service-block:nth-child(2) .service-block-label::after { content: "mem"; }
+li.service[data-name="OPNsense"] .service-block:nth-child(3) .service-block-label::after { content: "up"; }
+li.service[data-name="OPNsense"] .service-block:nth-child(4) .service-block-label::after { content: "down"; }
+/* Mikrotik: "cpu" and "mem", matching the Proxmox and OPNsense lines (its first widget sends cpu load, memory used) */
+#page_wrapper li.service[data-name="Mikrotik"] .service-container:not(.service-container ~ .service-container) .service-block-label { font-size: 0 !important; }
+li.service[data-name="Mikrotik"] .service-container:not(.service-container ~ .service-container) .service-block-label::after { font-size: .86rem; }
+li.service[data-name="Mikrotik"] .service-container:not(.service-container ~ .service-container) .service-block:nth-child(1) .service-block-label::after { content: "cpu"; }
+li.service[data-name="Mikrotik"] .service-container:not(.service-container ~ .service-container) .service-block:nth-child(2) .service-block-label::after { content: "mem"; }
+/* Transmission: Homepage sends leech, download, seed, upload; show seed, leech, down, up */
+li.service[data-name="Transmission"] .service-block:nth-child(3) { order: 1; }
+li.service[data-name="Transmission"] .service-block:nth-child(1) { order: 2; }
+li.service[data-name="Transmission"] .service-block:nth-child(2) { order: 3; }
+li.service[data-name="Transmission"] .service-block:nth-child(4) { order: 4; }
+#page_wrapper li.service[data-name="Transmission"] .service-block:nth-child(even) .service-block-label { font-size: 0 !important; }
+li.service[data-name="Transmission"] .service-block:nth-child(even) .service-block-label::after { font-size: .86rem; }
+li.service[data-name="Transmission"] .service-block:nth-child(2) .service-block-label::after { content: "down"; }
+li.service[data-name="Transmission"] .service-block:nth-child(4) .service-block-label::after { content: "up"; }
+/* Pangolin has one widget per organisation: each keeps a line to itself, led by a short name for the organisation
+   (first organisation, then second) */
+li.service[data-name="Pangolin"] .service-card > .service-container::before { content: "cloud"; flex: none; margin-left: 1.2rem; font-size: .86rem; color: color-mix(in srgb, var(--ink) 62%, transparent); }
+li.service[data-name="Pangolin"] .service-card > .service-container ~ .service-container::before { content: "web"; }
+li.service[data-name="Pangolin"] .service-card > .service-container:not(:last-child)::after { content: ""; flex-basis: 100%; height: 0; }
+
+/* bookmarks (bookmarks.yaml): the same menu line, with the site's address where a status would be */
+.bookmark-group { display: block !important; break-inside: avoid; overflow: visible !important; padding: 0 0 1.6rem !important; }
+.bookmark-group > button { justify-content: center; }
+.bookmark-group > button svg { display: none; }
+#page_wrapper .bookmark-group-name { display: flex; font: 600 .8rem var(--serif) !important; letter-spacing: .34em; text-transform: uppercase; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding-left: .34em; color: var(--accent) !important; }
+.bookmark-group-name::before { content: "❦"; font-size: 1.05rem; letter-spacing: 0; margin-bottom: .1rem; }
+.bookmark-group ul { display: block !important; margin: .45rem 0 0 !important; }
+.bookmark a { display: block; height: auto !important; background: transparent !important; box-shadow: none !important; border-radius: 0 !important; margin: 0 !important; padding: 0 !important; }
+.bookmark a > div { align-items: baseline; }
+.bookmark-icon { width: 1.5rem !important; margin-right: .35rem; align-self: center; background: transparent !important; }
+#page_wrapper .bookmark-icon { font-size: .62rem !important; font-weight: 600 !important; letter-spacing: .04em; color: var(--accent) !important; }
+.bookmark-icon img { width: 16px !important; height: 16px !important; filter: drop-shadow(0 0 .7px var(--ink)) drop-shadow(0 0 .7px var(--ink)); }
+.bookmark-icon > div { width: 16px !important; height: 16px !important; }
+.bookmark-text { align-items: baseline !important; overflow: visible !important; }
+.bookmark-name { flex: none; order: 1; font-size: 1.03rem !important; line-height: 1.43 !important; font-weight: 600 !important; padding: .14rem 0 !important; }
+.bookmark-text::after { content: ""; order: 2; flex: 1; margin: 0 .5rem; border-bottom: 1px dotted var(--leader); position: relative; top: -.28em; }
+#page_wrapper .bookmark-description { order: 3; flex: none; font-size: .86rem !important; padding: 0 !important; color: var(--faint) !important; }
+.bookmark a:hover .bookmark-name { color: var(--hover) !important; }
+
+/* a healthy pool's dot is as quiet as "up"; any other state keeps Homepage's own colour */
+.service-card > div:not(.service-title):not(.service-container) > span > span[class*="green"] { background: var(--up) !important; }
+
+/* widget error: a quiet red line; click it for the details */
+.service-card > details { padding: 0 0 .3rem 1.85rem !important; }
+.service-card > details > summary { display: inline-block !important; background: transparent !important; padding: 0 !important; margin: 0 !important; }
+#page_wrapper .service-card > details > summary div { font: 400 .86rem var(--serif) !important; text-transform: lowercase; color: var(--down) !important; }
+.service-card > details > summary svg { display: none; }
+.service-card > details > div { background: transparent !important; border-left: 1px solid var(--down); margin: .3rem 0 .4rem !important; }
+#page_wrapper .service-card > details > div * { font: 400 .8rem ui-monospace, monospace !important; }

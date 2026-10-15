@@ -1,0 +1,20 @@
+{
+  "_about": "Made-up figures for the Carte demo services.yaml. Every value is a string so it shows exactly as written.",
+  "proxmox":      { "vms": "18 / 20", "cpu": "23%", "mem": "51%" },
+  "pbs":          { "datastore": "64%", "failed": "0" },
+  "truenas":      { "uptime": "1mo14d", "alerts": "0" },
+  "portainer":    { "running": "42", "stopped": "3", "total": "45" },
+  "opnsense":     { "cpu": "4%", "memory": "512M", "wanUpload": "1.2 TB", "wanDownload": "18.6 TB" },
+  "mikrotik":     { "cpu": "3%", "memory": "27%", "ports": "7" },
+  "pangolin":     [ { "sites": "2 / 2", "resources": "14 / 14", "traffic": "52 GB" },
+                    { "sites": "1 / 1", "resources": "3 / 3", "traffic": "7.2 GB" } ],
+  "pihole":       { "queries": "148,203", "blocked": "21,630" },
+  "traefik":      { "routers": "48", "services": "45", "middleware": "6" },
+  "jellyfin":     { "movies": "1,204", "episodes": "8,317", "songs": "2,950" },
+  "audiobookshelf": { "books": "86", "duration": "1mo22d" },
+  "immich":       { "photos": "12,480", "videos": "936", "storage": "88 GiB" },
+  "radarr":       { "wanted": "12", "missing": "4", "movies": "1,204" },
+  "sonarr":       { "wanted": "37", "queued": "2", "series": "168" },
+  "transmission": { "leech": "1", "download": "4.2 MB/s", "seed": "96", "upload": "380 kB/s" },
+  "paperless":    { "total": "2,416", "inbox": "7" }
+}

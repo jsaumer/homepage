@@ -1,0 +1,49 @@
+---
+title: homepage
+
+headerStyle: clean
+theme: dark
+color: slate
+showStats: true
+hideVersion: true
+
+# every site monitor shows as the word "up"/"down" (the theme sets it in lowercase)
+statusStyle: basic
+# group headings are not clickable; the theme hides the collapse arrow
+disableCollapse: true
+
+layout:
+  # Carte: custom.css lays these out as a three-column menu; every group must be listed here.
+  # The order sets the columns. Platform, Network and Watch head the three columns (custom.css
+  # starts a new column at Network and at Watch on wide screens):
+  #   Platform, Acquire, Security | Network, Build, Elsewhere | Watch, Life, Observe, Toolbox
+  Platform:
+    style: row
+    columns: 4
+  Acquire:
+    style: row
+    columns: 4
+  Security:
+    style: row
+    columns: 4
+  Network:
+    style: row
+    columns: 4
+  Build:
+    style: row
+    columns: 4
+  Elsewhere: # bookmarks group, from bookmarks.yaml
+    style: row
+    columns: 4
+  Watch:
+    style: row
+    columns: 4
+  Life:
+    style: row
+    columns: 4
+  Observe:
+    style: row
+    columns: 4
+  Toolbox:
+    style: row
+    columns: 4

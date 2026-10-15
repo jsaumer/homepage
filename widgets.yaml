@@ -1,0 +1,5 @@
+---
+# Carte draws its own masthead (date and three-day weather) from custom.js, so it expects no
+# information widgets here. Homepage's defaults (CPU, memory, disk and a search bar) would sit above
+# the title. Add any back if you want them; the search box still works by typing anywhere on the page.
+[]

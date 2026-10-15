@@ -1,0 +1,32 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/en/configs/bookmarks
+#
+# "Elsewhere" is listed in settings.yaml (layout) so it sits in the menu's third column.
+# Each entry needs an href; use an icon, or a two-letter abbr when there is no icon.
+
+- Elsewhere:
+    - Bluesky:
+        - icon: sh-bluesky
+          href: https://bsky.app/
+    - Cloudflare:
+        - icon: sh-cloudflare
+          href: https://dash.cloudflare.com/
+    - Facebook:
+        - icon: sh-facebook
+          href: https://www.facebook.com/
+          description: facebook.com
+    - GitHub:
+        - icon: sh-github
+          href: https://github.com/
+    - Gmail:
+        - icon: sh-gmail
+          href: https://mail.google.com/
+    - Reddit:
+        - icon: sh-reddit
+          href: https://www.reddit.com/
+          description: reddit.com
+    - YouTube:
+        - icon: sh-youtube
+          href: https://www.youtube.com/
+          description: youtube.com
